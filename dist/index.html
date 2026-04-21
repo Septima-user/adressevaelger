@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Eksempel på brug af Adressevaelger</title>
+    <meta
+      name="description"
+      content="Working example of HTML/CSS/Javascript for adressevaelger migrated from dawaautocomplete2."
+    />
+    <style>
+      body {
+        font-family: sans-serif;
+        line-height: 1.5;
+        margin: 1rem;
+        padding: 0;
+        color: black;
+        background-color: white;
+        gap: 2rem;
+      }
+      h1,
+      h2 {
+        color: black;
+      }
+      h2 {
+        margin: 2rem 0 0;
+        font-size: 1.3rem;
+      }
+    </style>
+    <link rel="stylesheet" href="./adressevaelger.css" />
+    <script src="./adressevaelger.iife.js"></script>
+  </head>
+  <body>
+    <main>
+      <h1>Adressevælger demo</h1>
+
+      <article>
+        <h2>CDN version</h2>
+
+        <!-- HTML -->
+        <label for="demoCDN">Søg efter adresser</label>
+        <div class="autocomplete-container">
+          <input type="search" id="demoCDN" />
+        </div>
+
+        <!-- Javascript -->
+        <script>
+          adressevaelger.adressevaelger(document.getElementById("demoCDN"), {
+            token: "demo-3KCVX33CKZ",
+            select: function (selected) {
+              console.log("Valgt addresse eller husnummer:", selected);
+            },
+          });
+        </script>
+      </article>
+
+      <article>
+        <h2>ES module version</h2>
+
+        <!-- HTML -->
+        <label for="demoES">Søg efter adresser</label>
+        <div class="autocomplete-container">
+          <input type="search" id="demoES" />
+        </div>
+
+        <!-- Javascript -->
+        <script type="module">
+          import { adressevaelger } from "./adressevaelger.esm.js";
+          var inputElm = document.getElementById("demoES");
+          var component = adressevaelger(inputElm, {
+            token: "demo-3KCVX33CKZ",
+            select: function (selected) {
+              console.log("Valgt addresse eller husnummer: ", selected);
+            },
+          });
+        </script>
+      </article>
+
+      <article>
+        <h2>adgangsadresserOnly: true</h2>
+        <label for="demo3">Søg efter adresser</label>
+        <div class="autocomplete-container">
+          <input type="search" id="demo3" />
+        </div>
+        <script type="module">
+          import { adressevaelger } from "./adressevaelger.esm.js";
+          var inputElm = document.getElementById("demo3");
+          var component = adressevaelger(inputElm, {
+            token: "demo-3KCVX33CKZ",
+            adgangsadresserOnly: true,
+            select: function (selected) {
+              console.log("Valgt addresse eller husnummer: ", selected);
+            },
+          });
+        </script>
+      </article>
+
+      <article>
+        <h2>kommuneKode: 0580</h2>
+        <label for="demo4">Søg efter adresser</label>
+        <div class="autocomplete-container">
+          <input type="search" id="demo4" />
+        </div>
+        <script type="module">
+          import { adressevaelger } from "./adressevaelger.esm.js";
+          var inputElm = document.getElementById("demo4");
+          var component = adressevaelger(inputElm, {
+            token: "demo-3KCVX33CKZ",
+            kommuneKode: "0580",
+            select: function (selected) {
+              console.log("Valgt addresse eller husnummer: ", selected);
+            },
+          });
+        </script>
+      </article>
+
+      <article>
+        <h2>maksimum: 10</h2>
+        <label for="demo5">Søg efter adresser</label>
+        <div class="autocomplete-container">
+          <input type="search" id="demo5" />
+        </div>
+        <script type="module">
+          import { adressevaelger } from "./adressevaelger.esm.js";
+          var inputElm = document.getElementById("demo5");
+          var component = adressevaelger(inputElm, {
+            token: "demo-3KCVX33CKZ",
+            maksimum: 10,
+            select: function (selected) {
+              console.log("Valgt addresse eller husnummer: ", selected);
+            },
+          });
+        </script>
+      </article>
+
+      <article>
+        <h2>medtagForeloebige: true</h2>
+        <label for="demo6">Søg efter adresser</label>
+        <div class="autocomplete-container">
+          <input type="search" id="demo6" />
+        </div>
+        <script type="module">
+          import { adressevaelger } from "./adressevaelger.esm.js";
+          var inputElm = document.getElementById("demo6");
+          var component = adressevaelger(inputElm, {
+            token: "demo-3KCVX33CKZ",
+            medtagForeloebige: true,
+            select: function (selected) {
+              console.log("Valgt addresse eller husnummer: ", selected);
+            },
+          });
+        </script>
+      </article>
+
+      <article>
+        <h2>Web component version</h2>
+
+        <!-- HTML -->
+        <adressevaegler-input token="demo-3KCVX33CKZ">
+          <!-- ** Optional attributes ** -->
+          <!-- adgangsadresser-only -->
+          <!-- placeholder="Search for addresses" -->
+          <!-- kommune-kode="0151" -->
+          <!-- maksimum="10" -->
+          <!-- medtag-foreloebige -->
+          <!-- disabled -->
+          <!-- vejnavn="xxx" -->
+          <!-- postnummer="xxx" -->
+          <!-- api-url="https://api.test.dk" -->
+        </adressevaegler-input>
+
+        <!-- Javascript using -->
+        <script type="module">
+          import { AdresseSearchInput } from "./adressevaelger.esm.js";
+          customElements.define("adressevaegler-input", AdresseSearchInput);
+          // Listen for select event
+          document
+            .querySelector("adressevaegler-input")
+            .addEventListener("address:select", (event) => {
+              console.log("Valgt addresse eller husnummer", event.detail);
+            });
+          // Listen for error event
+          document
+            .querySelector("adressevaegler-input")
+            .addEventListener("address:error", (event) => {
+              console.error("Der opstod en fejl", event);
+            });
+        </script>
+      </article>
+    </main>
+  </body>
+</html>
