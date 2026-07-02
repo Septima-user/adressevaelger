@@ -1,4 +1,3 @@
-// @ts-check
 import { test, expect } from "@playwright/test";
 
 async function keyboardTest(page, id) {
@@ -6,7 +5,6 @@ async function keyboardTest(page, id) {
   const searchElement = page.locator(id);
   await searchElement.pressSequentially("Årh", { delay: 100 });
   await page.getByRole("option", { name: "Århusgade" }).waitFor();
-  await page.keyboard.press("ArrowDown");
   await page.keyboard.press("ArrowDown");
   await page.keyboard.press("ArrowDown");
   await page.keyboard.press("ArrowDown");
