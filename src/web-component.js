@@ -144,7 +144,7 @@ export class AdresseSearchInput extends HTMLElement {
         }),
       );
     } catch (err) {
-      this.errorHandler(new Error(`Failed to fetch items: ${err.message}`));
+      this.errorHandler(new Error(`Failed to fetch items: ${err.message}. `));
     }
   }
 
@@ -263,7 +263,6 @@ export class AdresseSearchInput extends HTMLElement {
   }
 
   errorHandler(err) {
-    console.error(err);
     this.dispatchEvent(
       new CustomEvent("address:error", {
         bubbles: true,
