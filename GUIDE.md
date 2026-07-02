@@ -199,3 +199,9 @@ Access token - [Learn how to get one at confluence.sdfi.dk](https://confluence.s
 default: `https://adressevaelger.dk`
 
 Point to a different API
+
+## Error handling
+
+Adressevaelger has no opinion on how you present errors to the user.
+
+If an error happens within Adressevaelger, the input element will fire an `address:error` event that you can catch with `addEventListener` and present to the user in any way you see fit.
