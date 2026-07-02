@@ -179,14 +179,15 @@
             .addEventListener("address:select", (event) => {
               console.log("Valgt addresse eller husnummer", event.detail);
             });
-          // Listen for error event
-          document
-            .querySelector("adressevaegler-input")
-            .addEventListener("address:error", (event) => {
-              console.error("Der opstod en fejl", event);
-            });
         </script>
       </article>
+
+      <script>
+        // Listen for error events across all input fields
+        document.body.addEventListener("address:error", (event) => {
+          console.error("Der opstod en fejl", event.detail.message);
+        });
+      </script>
     </main>
   </body>
 </html>
