@@ -34,6 +34,7 @@ export class AdresseSearchUI {
 
   inputHandler(event) {
     if (event.target.value === "") {
+      this.renderDOMList(this.listElement, []);
       return;
     }
     if (this.debounceTimer) {
@@ -85,7 +86,6 @@ export class AdresseSearchUI {
   }
 
   errorHandler(err) {
-    console.error(err);
     this.inputElement.dispatchEvent(
       new CustomEvent("address:error", {
         bubbles: true,
