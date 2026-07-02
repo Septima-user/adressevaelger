@@ -19,14 +19,25 @@ export class AdresseSearchAPI {
   }
 
   async search(endpoint, query, options = {}) {
-    if (!endpoint || !query) {
+    // Input sanitation using a HTML conversion
+    const sanitationElement = document.createElement('p')
+    sanitationElement.innerHTML = query
+    const cleanQuery = sanitationElement.innerText
+
+    if (cleanQuery.length > 73) {
+      throw new Error("Search query was too long (73+ characters).");
+    } else if (cleanQuery === '') {
+      throw new Error("Search query was empty.");
+    } else if (!endpoint || !query) {
       throw new Error("search() requires both endpoint and query parameters.");
     }
+
     const response = await fetch(
-      `${this.apiUrl}/${endpoint}/soeg?tekst=${query}&token=${this.token}${this.formatParams(options)}`,
+      `${this.apiUrl}/${endpoint}/soeg?tekst=${cleanQuery}&token=${this.token}${this.formatParams(options)}`,
     );
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      const body = await response.text();
+      throw new Error(`Status ${response.status} - ${body}`);
     }
     const data = await response.json();
     if (data.status === "fejl") {
